@@ -5,7 +5,6 @@ import todosFromServer from './api/todos';
 import { TodoList } from './components/TodoList';
 import { useState } from 'react';
 import { Todo } from './types/todo';
-import classNames from 'classnames';
 
 function getUserById(userId: number) {
   return usersFromServer.find(user => user.id === userId) || null;
@@ -26,6 +25,7 @@ export const App: React.FC = () => {
   const [idUser, setIdUser] = useState(0);
   const [wasSubmitted, setWasSubmitted] = useState(false);
   const inputId = `title-${getRandomDigits()}`;
+  const selectId = `user-${getRandomDigits()}`;
 
   function getNextId(todoList: Todo[]) {
     return Math.max(0, ...todoList.map(todo => todo.id)) + 1;
@@ -66,14 +66,6 @@ export const App: React.FC = () => {
 
       return;
     }
-
-    if (hasError) {
-      {
-        classNames('input', {
-          error: false,
-        });
-      }
-    }
   };
 
   return (
@@ -87,9 +79,6 @@ export const App: React.FC = () => {
           </label>
           <input
             type="text"
-            className={classNames('input', {
-              error: false,
-            })}
             placeholder="Enter a title"
             id={inputId}
             data-cy="titleInput"
@@ -102,11 +91,11 @@ export const App: React.FC = () => {
         </div>
 
         <div className="field">
-          <label className="label" htmlFor={inputId}>
+          <label className="label" htmlFor={selectId}>
             User:{' '}
           </label>
           <select
-            id="user.id"
+            id={selectId}
             data-cy="userSelect"
             value={idUser}
             onChange={event => setIdUser(+event.target.value)}
