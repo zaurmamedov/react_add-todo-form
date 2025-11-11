@@ -24,8 +24,8 @@ export const App: React.FC = () => {
   const [title, setTitle] = useState('');
   const [idUser, setIdUser] = useState(0);
   const [wasSubmitted, setWasSubmitted] = useState(false);
-  const inputId = `title-${getRandomDigits()}`;
-  const selectId = `user-${getRandomDigits()}`;
+  const [inputId] = useState(() => `title-${getRandomDigits()}`);
+  const [selectId] = useState(() => `user-${getRandomDigits()}`);
 
   function getNextId(todoList: Todo[]) {
     return Math.max(0, ...todoList.map(todo => todo.id)) + 1;
